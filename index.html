@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat AI Pro - منصة الذكاء الاصطناعي</title>
+    <!-- مكتبة توليد الـ QR Code -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0b0f19;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* خلفية متوهجة مضيئة */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(0, 123, 255, 0.15);
+            filter: blur(120px);
+            border-radius: 50%;
+            top: 10%;
+            left: 20%;
+            z-index: -1;
+        }
+
+        .container {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 123, 255, 0.2);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 123, 255, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-container {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 20px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #007bff, #00d4ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.6);
+            padding: 4px;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 26px;
+            margin-bottom: 8px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+
+        p.subtitle {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        /* صندوق الـ QR Code */
+        .qr-box {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 16px;
+            display: inline-block;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        #qrcode canvas, #qrcode img {
+            display: block;
+            margin: 0 auto;
+            border-radius: 8px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5);
+            background: linear-gradient(135deg, #0056b3, #003d82);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- الأيقونة -->
+        <div class="logo-container">
+            <img src="https://chat-ai-pro-ymod.onrender.com/favicon.ico" alt="Chat AI Pro Logo" onerror="this.src='https://raw.githubusercontent.com/anasmohammedabdelmoneam-rgb/Chat-ai-no-need/main/favicon.ico'">
+        </div>
+
+        <h1>Chat AI Pro</h1>
+        <p class="subtitle">امسح الرمز أدناه للوصول السريع إلى تطبيق الذكاء الاصطناعي</p>
+
+        <!-- QR Code -->
+        <div class="qr-box">
+            <div id="qrcode"></div>
+        </div>
+
+        <!-- الأزرار -->
+        <div class="btn-group">
+            <a href="https://chat-ai-pro-ymod.onrender.com/" target="_blank" class="btn">🚀 افتح التطبيق</a>
+            <button class="btn btn-secondary" onclick="copyLink()">🔗 نسخ الرابط</button>
+        </div>
+
+        <div class="footer">
+            &copy; 2026 Chat AI Pro. All rights reserved.
+        </div>
+    </div>
+
+    <script>
+        // توليد الـ QR Code تلقائياً لرابط التطبيق
+        const targetUrl = "https://chat-ai-pro-ymod.onrender.com/";
+        
+        new QRCode(document.getElementById("qrcode"), {
+            text: targetUrl,
+            width: 180,
+            height: 180,
+            colorDark: "#0b0f19",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        // دالة نسخ الرابط
+        function copyLink() {
+            navigator.clipboard.writeText(targetUrl).then(() => {
+                alert("تم نسخ رابط التطبيق بنجاح! 📋");
+            });
+        }
+    </script>
+</body>
+</html>
